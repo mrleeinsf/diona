@@ -1,0 +1,146 @@
+# Diona Mobility Configuration Manager User Guide 
+
+## Introduction
+A guiding Diona Mobility principle is configurability. As such, the administrator will be able to implement desired changes to the product through a dynamic and user-friendly configuration manager. This document describes the different configuration parameters supported by the Diona Mobility solution and available via the Diona Mobility Configuration Manager (DMCM), as well as the default settings applied to the solution. 
+
+### System Properties 
+The System Properties configuration settings will allow the configuration manager the ability to configure system wide application settings. The implementation of these parameters will allow the user to define value pairs concerning various aspects across the application. The administrator can change the properties using the DMCM interface. Please refer to Appendix A for the detailed list of configurable parameters and their default settings. 
+
+### Error Messages
+An error message originates from the solution based on a user’s action (versus a system generated message). The DMCM will provide the ability to customize and localize the text presented to the user when the specified error occurs. 
+
+## Screen Configurations
+The Diona Mobility solution provides the ability to dynamically generate screen content based on defined screen layouts (templates) for some of its screens. This is configured via the DMCM. For example, the client’s information displayed on the profile page is based on the demographic information configured for inclusion via the DMCM. Based on the information identified, the solution will “draw” the appropriate page.  
+1. Select a screen (or add & save a name for a new screen). 
+2. Select or add a section to the screen.
+
+Parameter	Description
+Name	Name of the screen’s section. 
+Label	Label for the section.
+Icon URL	URL location of icon to be used for this specific section. 
+Template	Selection of available screen section (container) templates.
+Hidden	Indicates whether or not the section should be presented in the application.
+3.	Select a section to configure its content (or click on the ‘add’ option to define the section content).
+ 
+Figure 6 Field Definition Modal
+Parameter	Description
+Mapping Name	Name to be presented to the device user for a defined field.
+Label	The code used to identify the field label. 
+Composite	Enable if two or more fields need to be displayed (e.g. “full name” combines a first & last name. 
+Disabled	Indicates a field is disabled (view only).
+Hidden	Indicates that the field is hidden. 
+Class	The CCS class this field refers to for styling.  
+Component Type	The field type (e.g. text field, label, selectable field, button and image).
+a.	If the component type selected is a button, then the following parameters are defined.
+ 
+Figure 7 Button Cluster
+Parameter	Description
+Event	Then the event type to be invoked for the link/button (e.g. scroll, tap, etc.).
+Listener	The function to be called when the field event is invoked. 
+screenName	The screen launched when the button is tapped on the device.  
+b.	If the component type selected is a text field, then the following parameters are defined.
+ 
+Figure 8 Text Field Cluster
+Parameter	Description
+placeHolder	A place holder defined for the text field. 
+c.	If the component type selected is a select field, then the following parameters are defined.
+ 
+Figure 9 Select Field Cluster
+Parameter	Description
+codeTable	The code table in the backend system from which the code table reads the values. 
+allowBlank	Whether a blank value has to be allowed in the drop-down. 
+defaultValue	The default value to be displayed in the drop down. 
+Localization
+The Diona Mobility solution includes multi-lingual support. Localization configuration is managed at the field label level in the DMCM. To define localized field labels:
+1.	Select or search for the screen to update . 
+ 
+Figure 10 DMCM | Screen Selector to Localize Field Labels
+2.	Select the field that requires a language update and enter localized text. 
+ 
+Figure 11 Field Label Localized Text Entry
+Notifications
+A notification  is information supplied to a Diona Mobility solution user from the SOR (system of record) and is presented on the messages screen in the Diona Mobility for Clients application. The Diona Mobility solution (via its connectors) will “listen” for certain events. This activity (via the connector) will occur on the backend server (SOR).  Based on the instigation of an event, the SOR connector will call the appropriate Diona Mobility API to create the message required to invoke a device notification. If an SOR connector (e.g. IBM Cúram or Oracle) is not provided by Diona for an implementation’s SOR, the implementation must customize their SOR to support the same functionality described and supported by Diona’s connectors.
+The administrator will be allowed the ability to modify the content of a notification message via the DMCM. The Diona Mobility solution supports three categories of notifications:
+•	Announcements: An announcement provides informational details to the Diona Mobility solution user with no associated action. There are different types of announcements that will be supported as part of the solution. Examples of an announcement notification includes a case status change, happy birthday message or a payment generation update.
+•	Appointments: An appointment provides details about a scheduled appointment for the Diona Mobility solution user, with the ability to create a calendar appointment in the user’s native device’s calendar application. An example of an appointment notification includes an office appointment or a home visit.
+•	Uploads: A request for verification provides the ability to access the Upload feature in the Diona Mobility solution. There are different types of verification notifications that will be supported as part of the solution. An example of a verification notification includes a request for documentation for an application, a request for documentation for recertification or a request for documentation for validation. The intention is that the token retrieved from the SOR (e.g. request for information regarding evidence verification for a new application) should drive the selection of the specific notification that is to be generated. 
+Access to the notifications available in the application is managed via the Localization section of the DMCM. Select the “messages” screen to manage the message contents. This configuration feature will allow the configuration manager to define the details of notifications presented to a user accessing the Diona Mobility solution. Please refer to Appendix B for the detailed list of messages and their content. 
+Data Mapping
+Diona Mobility solutions support the ability to interact with an organization’s existing legacy systems. It goes one step further for IBM Cúram implementations by providing default connectors that predefine communication between the Diona Mobility solution and the backend server (also known as the system of record or SOR). The Data Adapter function provides the ability to map the attributes that will be presented or captured from the solution to the SOR. Refer to the Diona Mobility Installation Guide | Connectors for more information regarding the IBM Cúram Connector integration process.
+ 
+Figure 12 DMCM | Data Mapping Section
+The details captured include:
+Parameter	Description
+Screen Name	The screen name.
+WebServices Operation Name	The SOR web services operation name from which the data will be retrieved.
+Request Element Name	Data populated when requesting a response. 
+Response Root Element Name	The root element of the output contract (the response).
+Response Child Element Name	The output contract list items. 
+
+ 
+Appendix A | Solution Configuration Parameters
+Description	Property	Values
+Define agency related address, phone number, mobile number and email address.	dm.agency.contactInfo	address: Nadathur Place, Jayanagar 3rd Block, Bangalore 
+email address: help@diona.com
+phone number: 123456789
+mobile number: 989094904
+Enable use of the defined agency contact details (phone, address and email) as the contact for agency owned cases. 	dm.useCaseWorkerContactInfo	true 
+Configuration used by System of Record to specify number of days to run the program recertification batch.	dm.sor.program.recertify.numDays	4
+The configuration used to enable Dashboard Services. Only those dashboard item codes that were set to true will get enabled in the dashboard.	dm.DashBoardEnabledItems	true
+Whether the System of Record is to be used to store the image to use for visits for a case. 	dm.sor.case.visit.image	true 
+The GeoCoder API Provider configuration.	dm.geocoder.provider	Provider API: Node Geocoder
+Geocoder Provider: Google
+Configuration to pass delay processing flag in the system of record Request to the back end server. Configuration format is <screen name> : {parameter name : parameter value}.	dm.sor.delayedprocessing	True/false
+The Scheduler API Provider configuration.	dm.scheduler.provider	cronScheduler
+All scheduled batch jobs listed for client application are set here. The function Provider path may change based on the directory from where a batch gets executed.	dm.clientapp.batchjobs	List of batch jobs specified
+Application menu configuration.	dm.clientapp.menuconfig	Application Menu Specified here
+Application client configuration.	dm.clientapp.clientconfig	
+Whether the System of Record is to be used to store next appointment expectations for a case. 	dm.sor.next.appontment.expectations	false 
+The identified System(s) of Record that the mobile solution will interact with.	dm.sors	Type: curam
+Host: 166.78.157.102
+Port: 9082
+Enable use of redis client to check session store. 	dm.useRedisClient.checkSession	true 
+Social Enterprise Management external application port.	dm.sem.applicationport	9044 
+Social Enterprise Management external system host address.	dm.sem.host	166.78.157.102 
+Social Enterprise Management external system web services port.	dm.sem.port	9082 
+The default language to be presented to the client accessing the mobile solution if the user’s device language is not supported.	dm.default.locale	en
+The list of all supported languages of the mobile solution.	dm.locales	default, en, en-US, 
+Property to specify the notification provider details. By default, Diona Mobility includes provider details for its notification service provider, Urban Airship.	dm.notificationprovider.details	URL: https://go.urbanairship.com:443
+appId: dvG9sFAzTJWZBA52_oA8zg
+secPassword: B8MxVMAYSTWr27QPgNmikQ
+Property to specify configuration for Notification Service.	dm.notificationservice.config	pollerTimedelay: 60000
+useGenericMessage: true
+CommonNotificationMessage: New notification from Agency
+MSG_APPTMENT: true
+MSG_DOCUMENT: true
+MSG_PAYMENT: true
+MSG_CASESTATUS: true
+MSG_ANNOUNCEMENT: true
+MSG_BIRTHDAY: true
+MSG_RECERTIFY: true
+MSG_APPSTATUS: true
+The authentication provider.	dm.authentication.provider	Provider: curam
+Host: 166.78.157.102
+Port: 9044
+Mobile application session timeout value (in seconds). 	dm.mobileapp.session.timeout	300 
+Controls whether a user is allowed to login multiple times. 	dm.allow.multiple.logins	false 
+Checks whether JSON request or response data is validated against a schema.  Valid values are error, warn and off.	dm.validate.json	
+
+Appendix B | Notification Parameters
+Identifier	Type	Content	Cúram Trigger
+MSG_APPTMENT	Appointment	You have been invited to an appointment from {sentTime} until {endTime} on {startDate}. 	curam.meetings.sl.impl.Meeting.inviteAmender
+MSG_APPTMENT_LOCATION	Appointment Location	The appointment will be at {location}.	curam.meetings.sl.impl.Meeting.inviteAmender
+MSG_DOCUMENT	Proof Document	To speed up the processing for your application, you are required to upload a photo of your {requiredDocument} document.	curam.verification.sl.infrastructure.impl.VerificationController 
+curam event triggered : Verification 
+MSG_PAYMENT	Payment Informational	{caseType} payment of {amount} has been issued to you on {issuedDateTime}.	curam.core.sl.event.impl.FinancialComponentEvent
+curam.core.inft.ProcessInteractivePayments
+curam.core.sl.event.impl.PaymentInstrumentEvent
+MSG_CASESTATUS	Case Status Informational	Your {caseType} case has changed status from {previousState} to {newState}.	curam.core.facade.intf.PrductDelivery.activate
+curam.core.facade.intf.PrductDelivery.unsuspend
+curam.core.facade.intf.PrductDelivery.suspend
+curam.core.facade.intf.PrductDelivery.close
+curam.workspaceservices.facade.impl.SystemMessage.publishSystemMessage
+MSG_BIRTHDAY	Birthday Message	Dear {firstName}, we at {agencyName}, would like to wish you a Very Happy Birthday!	This is triggered by a batch process
+MSG_RECERTIFY	Recertification Request	You are required to re-certify for your {programName} case before {endDate}.	This is triggered by a batch process
+MSG_APPSTATUS	Application Status Informational	Your application for {programName} has been approved and a {caseType} case, has been created with case number {caseReference}.	curam.creoleprogramrecommendation.impl.AuthorizationEvent
+
